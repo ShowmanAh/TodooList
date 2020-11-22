@@ -1,78 +1,81 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# ADR(Action Domain Responder)
+Action Domain Responder organizes a single user
+interface interaction between an HTTP client and a HTTP server-side application into three distinct roles.
+# Components ADR
+ - [Action](#Action): is the logic to connect the Domain and Responder. 
+   It invokes the Domain with inputs collected from the HTTP Request, then invokes the Responder with the data needed to build an HTTP Response.
+ 
+- [Domain](#Domain): is an entry point to the domain logic forming the core of the application.
+   It may be a Transaction Script, Service Layer, Application Service, or something similar.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+- [Responder](#Responder): is the presentation logic to build an HTTP Response using data it receives from the Action.
+   It deals with status codes, headers and cookies, content, formatting and transformation, templates and views, and so on. 
+### <a name="ADR PROCESS">ADR PROCESS</a>
+ - The web handler receives an HTTP Request and dispatches it to an Action.
+  
+ - The Action invokes the Domain, collecting any required inputs to the Domain from the HTTP Request.
+ - The Action then invokes the Responder with the data it needs to build an HTTP Response.
+ -  The Responder builds an HTTP Response using the data fed to it by the Action.
+ -  The Action returns the HTTP Response to the web handler sends the HTTP Response.
+ 
+ ## <a name="toc">Table of Contents</a>
 
-## About Laravel
+- [Structure](#Structure)
+  - [Table of Contents](#table-of-contents)
+     - [User Module](#Users-Module)
+        - [Actions](#Actions)
+            - [RegisterUserActions](#RegisterUserActions)
+            - [LoginUserActions](#LoginUserActions)
+            
+        - [Domain](#Domain) 
+           - [Services](#Services) 
+                - [RegisterUserServices](#RegisterUserServices)
+           - [Models](#Models) 
+                - [User](#User)
+           - [Events](#Events) 
+                - [UserWasRegistered](#UserWasRegistered)
+           - [Listeners](#listeners) 
+                - [SendResetMail](#SendResetMail)
+           - [Requests](#Requests) 
+                - [CreateUserFormRequest](#CreateUserFormRequest)
+           - [Resources](#Resources) 
+                - [UserResource](#UserResource)
+           - [Observers](#Observers) 
+                - [UserObserver](#UserObserver)
+           - [Repositories](#Repositories) 
+                - [UserRepository](#UserRepository)
+           
+        - [Responders](#Responders) 
+           - [RegisterUserResponders](#RegisterUserResponders)
+           
+ 
+ ## <a name="toc">Application</a>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- [App Modules](#App-Modules)
+  - [User Module](#[User-Module)
+       - [Actions](#Actions)
+       - [Domain](#Domain)
+       - [Responders](#Responders)
+  - [Category Module](#[Category-Module)
+       - [Actions](#Actions)
+       - [Domain](#Domain)
+       - [Responders](#Responders)
+  - [Product Module](#[Product-Module)
+       - [Actions](#Actions)
+       - [Domain](#Domain)
+       - [Responders](#Responders)
+  - [Cart Module](#[Cart-Module)
+       - [Actions](#Actions)
+       - [Domain](#Domain)
+       - [Responders](#Responders)
+  - [Order Module](#[Order-Module)
+       - [Actions](#Actions)
+       - [Domain](#Domain)
+       - [Responders](#Responders)
+  - [Payment Module](#[Payment-Module)
+       - [Actions](#Actions)
+       - [Domain](#Domain)
+       - [Responders](#Responders)
+   
+    
+     
