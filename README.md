@@ -55,10 +55,10 @@ interface interaction between an HTTP client and a HTTP server-side application 
  -  The Responder builds an HTTP Response using the data fed to it by the Action.
  -  The Action returns the HTTP Response to the web handler sends the HTTP Response.
  
- ## <a name="toc">Table of Contents</a>
+ ## <a name="toc">Example</a>
 
 - [Structure](#Structure)
-  - [Table of Contents](#table-of-contents)
+  - [User Example](#User-Example )
      - [User Module](#Users-Module)
         - [Actions](#Actions)
             - [RegisterUserActions](#RegisterUserActions)
