@@ -18,7 +18,12 @@
 ## <a name="toc">Technologies</a>
 
 - [Back-End](#back-end)
-   - [Programming Languages](#programming-languages)
+   - [PHP](#PHP)
+   - [Laravel7](#Laravel7)
+   - [ADR Architecture](#ADR Architecture)
+- [Front-End](#Front-end)
+   - [Javascript](#Javascript)
+   - [Nuxt](#Nuxt)
 
 
 
