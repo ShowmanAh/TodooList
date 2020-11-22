@@ -1,4 +1,4 @@
-# Adsoldier-APP
+# Adsoldiers-APP
 # Prerequisites:
 - The application was built using Laravel Framework, so you should ensure you have it installed on your machine.
 
@@ -7,9 +7,15 @@
 - Admin Manage users and full application.
 - Admin manage Categories, Libraries, Tasks, changeUserRole, Ads, Analytics, control settings app, Contact Message.
 - Advertiser manage Ads after Making Task, Campigns, view categories and libraries, Analytics Capigns.
-- Soldier view Ads, share it, Subscribe it.
+- Soldier view Ads, share it, Subscribe it, Cancel Transactions.
 - Analytics
 - Payment
+- List users, Ads, Categories, Libraries, Tasks in app.
+- define soldiers that ads matched them.
+
+- [Technologies](#Technologies)
+    - [Back-end](#Back-end) 
+
 
 
 
