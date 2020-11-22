@@ -35,21 +35,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ADR(Action Domain Responder)
 Action Domain Responder organizes a single user
 interface interaction between an HTTP client and a HTTP server-side application into three distinct roles.
@@ -101,33 +86,4 @@ interface interaction between an HTTP client and a HTTP server-side application 
            - [RegisterUserResponders](#RegisterUserResponders)
            
  
- ## <a name="toc">Application</a>
-
-- [App Modules](#App-Modules)
-  - [User Module](#[User-Module)
-       - [Actions](#Actions)
-       - [Domain](#Domain)
-       - [Responders](#Responders)
-  - [Category Module](#[Category-Module)
-       - [Actions](#Actions)
-       - [Domain](#Domain)
-       - [Responders](#Responders)
-  - [Product Module](#[Product-Module)
-       - [Actions](#Actions)
-       - [Domain](#Domain)
-       - [Responders](#Responders)
-  - [Cart Module](#[Cart-Module)
-       - [Actions](#Actions)
-       - [Domain](#Domain)
-       - [Responders](#Responders)
-  - [Order Module](#[Order-Module)
-       - [Actions](#Actions)
-       - [Domain](#Domain)
-       - [Responders](#Responders)
-  - [Payment Module](#[Payment-Module)
-       - [Actions](#Actions)
-       - [Domain](#Domain)
-       - [Responders](#Responders)
-   
-    
-     
+ 
