@@ -1,3 +1,33 @@
+# Adsoldier-APP
+# Prerequisites:
+- The application was built using Laravel Framework, so you should ensure you have it installed on your machine.
+
+### <a name="Features">Features</a>
+- Register & Login for users with activate Acount, Update Profile.
+- Admin Manage users and full application.
+- Admin manage Categories, Libraries, Tasks, changeUserRole, Ads, Analytics, control settings app, Contact Message.
+- Advertiser manage Ads after Making Task, Campigns, view categories and libraries, Analytics Capigns.
+- Soldier view Ads, share it, Subscribe it.
+- Analytics
+- Payment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ADR(Action Domain Responder)
 Action Domain Responder organizes a single user
 interface interaction between an HTTP client and a HTTP server-side application into three distinct roles.
