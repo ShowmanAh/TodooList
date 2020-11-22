@@ -28,7 +28,7 @@
 # Usage:
  - Clone this repository to your desktop, go to the adsoldier-backend directory and install the application dependencies using composer:
    - composer install
- - Run the application and go to [a link](http://localhost:8000) to see the application running: 
+ - Run the application and go to [a http://localhost:8000] to see the application running: 
    
    - php artisan serve
 
